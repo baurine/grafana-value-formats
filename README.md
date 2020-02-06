@@ -20,15 +20,22 @@ export type ValueFormatter = (
 Samples: (copy from valueForamts.test.ts)
 
 ```ts
-const str = getValueFormat("ms")(10000086.123, 1, null);
-expect(str).toBe("2.8 hour");
+// if scaledDecimals is null, use decimals
+const str = getValueFormat('ms')(10000086.123, 0, null)
+expect(str).toBe('3 hour')
 
-const str = getValueFormat("kbytes")(10000000, 3, null);
-expect(str).toBe("9.537 GiB");
+const str = getValueFormat('ms')(10000086.123, 1, null)
+expect(str).toBe('2.8 hour')
 
-const str = getValueFormat("deckbytes")(10000000, 3, null);
-expect(str).toBe("10.000 GB");
+const str = getValueFormat('kbytes')(10000000, 3, null)
+expect(str).toBe('9.537 GiB')
 
-const str = getValueFormat("ms")(1200, 0, 0);
-expect(str).toBe("1.200 s");
+const str = getValueFormat('deckbytes')(10000000, 3, null)
+expect(str).toBe('10.000 GB')
+
+// if scaledDecimals is not null, use scaledDecimals, ignore decimals
+const str = getValueFormat('ms')(1200, 0, 0)
+expect(str).toBe('1.200 s')
 ```
+
+You can find all `unitFormat` we can use in the `categories.ts`, or exported `getValueFormats()` function.

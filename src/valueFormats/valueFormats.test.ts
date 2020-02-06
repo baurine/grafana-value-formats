@@ -34,9 +34,12 @@ describe('valueFormats', () => {
       const units = ['', 'K', 'M', 'B', 'T'];
       const scaler = scaledUnits(1000, units);
 
+      expect(scaler(98765, 0, null)).toBe('99K');
       expect(scaler(98765, 1, null)).toBe('98.8K');
       expect(scaler(98765, 2, null)).toBe('98.77K');
 
+      expect(scaler(9876543, 0, null)).toBe('10M');
+      expect(scaler(9876543, 1, null)).toBe('9.9M');
       expect(scaler(9876543, 2, null)).toBe('9.88M');
       expect(scaler(9876543, 3, null)).toBe('9.877M');
     });
@@ -69,8 +72,11 @@ describe('valueFormats', () => {
 
   describe('ms format when scaled decimals is null do not use it', () => {
     it('should use specified decimals', () => {
-      const str = getValueFormat('ms')(10000086.123, 1, null);
-      expect(str).toBe('2.8 hour');
+      const str1 = getValueFormat('ms')(10000086.123, 0, null);
+      expect(str1).toBe('3 hour');
+
+      const str2 = getValueFormat('ms')(10000086.123, 1, null);
+      expect(str2).toBe('2.8 hour');
     });
   });
 
