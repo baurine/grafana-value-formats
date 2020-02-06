@@ -4,9 +4,18 @@ Extract code about value formats from grafana repo and dis some slight changes.
 
 ## How to use
 
-I don't compile it to js and publish to npm, so you need to clone to your typescript project manually by `git clone --depth=1`, and your project need to install moment and jest package additionally.
+I publish this package to GitHub Packages. (TODO: how to use package from GitHub Packages)
 
-The main function is `function getValueFormat(unitFormat: string): string {...}`.
+The main function is `function getValueFormat(unitFormat: string): string {...}`, it will return a function whose signature is below:
+
+```ts
+export type ValueFormatter = (
+  value: number,
+  decimals?: DecimalCount,
+  scaledDecimals?: DecimalCount,
+  isUtc?: boolean
+) => string
+```
 
 Samples: (copy from valueForamts.test.ts)
 

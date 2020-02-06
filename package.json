@@ -1,11 +1,33 @@
 {
-  "name": "value-formats",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
+  "name": "@baurine/grafana-value-formats",
+  "version": "0.1.1",
+  "description": "grafana value formats",
+  "author": "baurine (extract from grafana)",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "lint": "echo 'todo by eslint'",
+    "format": "echo 'ignore'",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/jest": "^25.1.1",
+    "jest": "^25.1.0",
+    "moment": "^2.24.0",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
+  },
+  "peerDependencies": {
+    "moment": "^2.24.0"
+  }
 }
