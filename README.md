@@ -4,7 +4,17 @@ Extract code about value formats from grafana repo and dis some slight changes.
 
 ## How to use
 
-I publish this package to GitHub Packages. (TODO: how to use package from GitHub Packages)
+### Install
+
+```sh
+$ npm install @baurine/grafana-value-formats
+// or
+$ yarn add @baurine/grafana-value-formats
+```
+
+(I publish this package to npm registry and GitHub Packages both.)
+
+### Use
 
 The main function is `function getValueFormat(unitFormat: string): string {...}`, it will return a function whose signature is below:
 

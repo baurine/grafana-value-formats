@@ -1,6 +1,6 @@
 {
   "name": "@baurine/grafana-value-formats",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "grafana value formats",
   "author": "baurine (extract from grafana)",
   "license": "ISC",
