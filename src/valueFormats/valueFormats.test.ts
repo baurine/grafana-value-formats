@@ -23,11 +23,16 @@ describe('valueFormats', () => {
       const units = ['', 'K', 'M', 'B', 'T'];
       const scaler = scaledUnits(1000, units);
 
-      expect(scaler(98765, 0, 0)).toBe('98.765K');
-      expect(scaler(98765, 0, -1)).toBe('98.77K');
+      expect(scaler(765, 0, 2)).toBe('765');
+      expect(scaler(765, 0, 3)).toBe('765');
 
-      expect(scaler(9876543, 0, 0)).toBe('9.876543M');
-      expect(scaler(9876543, 0, -1)).toBe('9.87654M');
+      // expect(scaler(98765, 0, 0)).toBe('98.765K');
+      // expect(scaler(98765, 0, -1)).toBe('98.77K');
+      expect(scaler(98765, 0, 2)).toBe('98.77K');
+      expect(scaler(98765, 0, 3)).toBe('98.765K');
+
+      // expect(scaler(9876543, 0, 0)).toBe('9.876543M');
+      // expect(scaler(9876543, 0, -1)).toBe('9.87654M');
     });
 
     it('scaledUnit should handle number correctly if scaledDecimals is null', () => {

@@ -124,7 +124,10 @@ export function scaledUnits(factor: number, extArray: string[]) {
     // 如果 scaledDecimals 不为空，则以 scaledDecimals 为准
     // 否则以 decimals 为准
     if (steps > 0 && scaledDecimals !== null && scaledDecimals !== undefined) {
-      decimals = scaledDecimals + 3 * steps; // 为什么是乘以 3，大概是以 factor = 1000 为准，1000 表示 3 个小数点
+      // decimals = scaledDecimals + 3 * steps; // 为什么是乘以 3，大概是以 factor = 1000 为准，1000 表示 3 个小数点
+
+      // related issue: https://github.com/grafana/grafana/issues/23561
+      decimals = scaledDecimals
     }
 
     return toFixed(size, decimals) + extArray[steps];

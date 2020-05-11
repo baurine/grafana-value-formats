@@ -1,8 +1,8 @@
 name: Node.js Package
 on:
   push:
-    branches:
-      - release
+    tags:
+      - v_*
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +15,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@baurine' # Defaults to the user or organization that owns the workflow file
       - run: yarn
+      - run: yarn test
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
