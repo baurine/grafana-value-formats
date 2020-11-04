@@ -1,6 +1,6 @@
 # Grafana Value Formats
 
-Extract code about value formats from grafana repo and dis some slight changes.
+Extract code about value formats from grafana repo and did some slight changes.
 
 ## How to use
 
@@ -49,3 +49,36 @@ expect(str).toBe('1.200 s')
 ```
 
 You can find all `unitFormat` we can use in the `categories.ts`, or exported `getValueFormats()` function.
+
+## Release Notes
+
+### 1.0.0
+
+#### Breaking Changes
+
+1. Change a part implementation of `scaledUnits()` method in `src/valueFormats/valueFormats.ts` line 126:
+
+   ```ts
+   if (steps > 0 && scaledDecimals !== null && scaledDecimals !== undefined) {
+     // old logic
+     // decimals = scaledDecimals + 3 * steps; // 为什么是乘以 3，大概是以 factor = 1000 为准，1000 表示 3 个小数点
+
+     // current logic
+     // related issue: https://github.com/grafana/grafana/issues/23561
+     decimals = scaledDecimals
+   }
+   ```
+
+   So at before
+
+   ```ts
+   expect(scaler(98765, 0, 2)).toBe('98.76500K')
+   // because the decimals = 1*3 + 2
+   ```
+
+   and now
+
+   ```ts
+   expect(scaler(98765, 0, 2)).toBe('98.77K')
+   // because the decimals = 2
+   ```
