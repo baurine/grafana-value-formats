@@ -52,6 +52,14 @@ You can find all `unitFormat` we can use in the `categories.ts`, or exported `ge
 
 ## Release Notes
 
+### 1.0.2
+
+- Nothing changes, just bump version
+
+### 1.0.1
+
+- Add "qps" unit ([#4](https://github.com/baurine/grafana-value-formats/pull/4))
+
 ### 1.0.0
 
 #### Breaking Changes
