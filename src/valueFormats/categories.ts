@@ -349,6 +349,7 @@ export const getCategories = (): ValueFormatCategory[] => [
     formats: [
       { name: 'counts/sec (cps)', id: 'cps', fn: simpleCountUnit('cps') },
       { name: 'ops/sec (ops)', id: 'ops', fn: simpleCountUnit('ops') },
+      { name: 'queries/sec (qps)', id: 'qps', fn: simpleCountUnit('qps') },
       { name: 'requests/sec (rps)', id: 'reqps', fn: simpleCountUnit('reqps') },
       { name: 'reads/sec (rps)', id: 'rps', fn: simpleCountUnit('rps') },
       { name: 'writes/sec (wps)', id: 'wps', fn: simpleCountUnit('wps') },
