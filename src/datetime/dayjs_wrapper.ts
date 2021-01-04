@@ -1,13 +1,16 @@
-import { TimeZone } from '../types/time';
-/* tslint:disable:import-blacklist ban ban-types */
-import moment, { Moment, MomentInput, DurationInputArg1 } from 'moment';
-import { DEFAULT_DATE_TIME_FORMAT } from './formats';
-export interface DateTimeBuiltinFormat {
-  __momentBuiltinFormatBrand: any;
-}
-export const ISO_8601: DateTimeBuiltinFormat = moment.ISO_8601;
-export type DateTimeInput = Date | string | number | Array<string | number> | DateTime; // null | undefined
-export type FormatInput = string | DateTimeBuiltinFormat | undefined;
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import isoWeek from 'dayjs/plugin/isoWeek'
+import duration from 'dayjs/plugin/duration'
+
+dayjs.extend(utc)
+dayjs.extend(relativeTime)
+dayjs.extend(isoWeek)
+dayjs.extend(duration)
+
+export type DateTimeInput = Date | string | number | DateTime;
+export type FormatInput = string | undefined;
 export type DurationInput = string | number | DateTimeDuration;
 export type DurationUnit =
   | 'year'
@@ -76,52 +79,14 @@ export interface DateTime extends Object {
   minute?: () => number;
 }
 
-export const setLocale = (language: string) => {
-  moment.locale(language);
-};
-
-export const getLocaleData = (): DateTimeLocale => {
-  return moment.localeData();
-};
-
-export const isDateTime = (value: any): value is DateTime => {
-  return moment.isMoment(value);
-};
-
-export const toUtc = (input?: DateTimeInput, formatInput?: FormatInput): DateTime => {
-  return moment.utc(input as MomentInput, formatInput) as DateTime;
+export const toUtc = (input?: DateTimeInput): DateTime => {
+  return dayjs.utc(input as dayjs.ConfigType) as DateTime;
 };
 
 export const toDuration = (input?: DurationInput, unit?: DurationUnit): DateTimeDuration => {
-  return moment.duration(input as DurationInputArg1, unit) as DateTimeDuration;
+  return dayjs.duration(input, unit) as DateTimeDuration;
 };
 
 export const dateTime = (input?: DateTimeInput, formatInput?: FormatInput): DateTime => {
-  return moment(input as MomentInput, formatInput) as DateTime;
-};
-
-export const dateTimeAsMoment = (input?: DateTimeInput) => {
-  return dateTime(input) as Moment;
-};
-
-export const dateTimeForTimeZone = (
-  timezone?: TimeZone,
-  input?: DateTimeInput,
-  formatInput?: FormatInput,
-): DateTime => {
-  if (timezone === 'utc') {
-    return toUtc(input, formatInput);
-  }
-
-  return dateTime(input, formatInput);
-};
-
-export const getTimeZoneDateFormatter: (timezone?: TimeZone) => DateFormatter = timezone => (
-  date,
-  format,
-) => {
-  date = isDateTime(date) ? date : dateTime(date);
-  format = format || DEFAULT_DATE_TIME_FORMAT;
-
-  return timezone === 'browser' ? dateTime(date).format(format) : toUtc(date).format(format);
+  return dayjs(input as dayjs.ConfigType, formatInput) as DateTime;
 };
