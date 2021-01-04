@@ -52,6 +52,10 @@ You can find all `unitFormat` we can use in the `categories.ts`, or exported `ge
 
 ## Release Notes
 
+### 1.0.3
+
+- Use dayjs to replace momentjs
+
 ### 1.0.2
 
 - Nothing changes, just bump version
