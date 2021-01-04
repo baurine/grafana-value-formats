@@ -1,4 +1,4 @@
-import { toDuration as duration, toUtc, dateTime } from '../datetime/moment_wrapper';
+import { toDuration as duration, toUtc, dateTime } from '../datetime/dayjs_wrapper';
 
 import { toFixed, toFixedScaled } from './valueFormats';
 import { DecimalCount } from '../types/displayValue';
@@ -250,39 +250,39 @@ export function toClock(size: number, decimals?: DecimalCount) {
 
   // < 1 second
   if (size < 1000) {
-    return toUtc(size).format('SSS\\m\\s');
+    return toUtc(size).format('SSS[ms]');
   }
 
   // < 1 minute
   if (size < 60000) {
-    let format = 'ss\\s:SSS\\m\\s';
+    let format = 'ss[s]:SSS[ms]';
     if (decimals === 0) {
-      format = 'ss\\s';
+      format = 'ss[s]';
     }
     return toUtc(size).format(format);
   }
 
   // < 1 hour
   if (size < 3600000) {
-    let format = 'mm\\m:ss\\s:SSS\\m\\s';
+    let format = 'mm[m]:ss[s]:SSS[ms]';
     if (decimals === 0) {
-      format = 'mm\\m';
+      format = 'mm[m]';
     } else if (decimals === 1) {
-      format = 'mm\\m:ss\\s';
+      format = 'mm[m]:ss[s]';
     }
     return toUtc(size).format(format);
   }
 
-  let format = 'mm\\m:ss\\s:SSS\\m\\s';
+  let format = 'mm[m]:ss[s]:SSS[ms]';
 
   const hours = `${('0' + Math.floor(duration(size, 'milliseconds').asHours())).slice(-2)}h`;
 
   if (decimals === 0) {
     format = '';
   } else if (decimals === 1) {
-    format = 'mm\\m';
+    format = 'mm[m]';
   } else if (decimals === 2) {
-    format = 'mm\\m:ss\\s';
+    format = 'mm[m]:ss[s]';
   }
 
   return format ? `${hours}:${toUtc(size).format(format)}` : hours;

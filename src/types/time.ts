@@ -1,4 +1,4 @@
-import { DateTime } from '../datetime/moment_wrapper';
+import { DateTime } from '../datetime/dayjs_wrapper';
 
 export interface RawTimeRange {
   from: DateTime | string;
