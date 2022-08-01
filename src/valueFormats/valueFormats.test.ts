@@ -105,4 +105,48 @@ describe('valueFormats', () => {
       expect(str).toBe('1.200 s');
     });
   });
+
+  describe('Data Rate (IEC) format ', () => {
+    it('Bps should format number correctly if decimal is null', () => {
+      expect(getValueFormat('Bps')(1000)).toBe('1000 Bs');
+      expect(getValueFormat('Bps')(1024)).toBe('1 KiBs');
+      expect(getValueFormat('Bps')(100000)).toBe('98 KiBs');
+    });
+
+    it('Bps should handle number correctly if decimal is not null', () => {
+      expect(getValueFormat('Bps')(1024.38, 2)).toBe('1.00 KiBs');
+      expect(getValueFormat('Bps')(1000.41, 1)).toBe('1000.4 Bs');
+    });
+
+    it('Bps should handle number correctly if scaledDecimals is not null', () => {
+      expect(getValueFormat('Bps')(1024.33, 2, 3)).toBe('1.000 KiBs');
+    });
+
+    it('Bps should handle number correctly if scaledDecimals is null', () => {
+      expect(getValueFormat('Bps')(1024.33, 2, null)).toBe('1.00 KiBs');
+    });
+  });
+
+  describe('Data Rate (Metric) format ', () => {
+    it('decBps should format number correctly if decimal is null', () => {
+      expect(getValueFormat('decBps')(1000)).toBe('1 kBs');
+      expect(getValueFormat('decBps')(1050)).toBe('1 kBs');
+      expect(getValueFormat('decBps')(100000)).toBe('100 kBs');
+
+      console.log(getValueFormat('decBps')(1024), getValueFormat('decBps')(100000))
+    });
+
+    it('decBps should handle number correctly if decimal is not null', () => {
+      expect(getValueFormat('decBps')(1024.38, 2)).toBe('1.02 kBs');
+      expect(getValueFormat('decBps')(1000.41, 1)).toBe('1.0 kBs');
+    });
+
+    it('decBps should handle number correctly if scaledDecimals is not null', () => {
+      expect(getValueFormat('decBps')(1024.33, 2, 3)).toBe('1.024 kBs');
+    });
+
+    it('decBps should handle number correctly if scaledDecimals is null', () => {
+      expect(getValueFormat('decBps')(1024.33, 2, null)).toBe('1.02 kBs');
+    });
+  });
 });
