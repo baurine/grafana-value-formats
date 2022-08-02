@@ -52,6 +52,11 @@ You can find all `unitFormat` we can use in the `categories.ts`, or exported `ge
 
 ## Release Notes
 
+### 1.0.4
+
+- Add IEC units for Data rate
+- Update id of Data rate in SI units
+
 ### 1.0.3
 
 - Use dayjs to replace momentjs
