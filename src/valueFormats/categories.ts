@@ -172,6 +172,8 @@ export const getCategories = (): ValueFormatCategory[] => [
       { name: 'petabytes', id: 'decpbytes', fn: decimalSIPrefix('B', 5) },
     ],
   },
+  // Metrics and IEC unit information wiki: https://en.wikipedia.org/wiki/Units_of_information
+  // Online Data Transfer Rate Conversion Calculator: https://keisan.casio.com/exec/system/15591151544809
   {
     name: 'Data Rate (Metric)',
     formats: [
